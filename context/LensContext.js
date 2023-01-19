@@ -2,6 +2,7 @@ import {
   challenge,
   apolloClient,
   authenticate,
+  getDefaultProfile,
 } from "../constants/lensConstants";
 import { useState, useContext, createContext, useEffect } from "react";
 import { useMoralis } from "react-moralis";
@@ -30,13 +31,13 @@ export function LensProvider({ children }) {
       });
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-
+      /* ask the user to sign a message with the challenge info returned from the server */
       const signature = await signer.signMessage(
         challengeInfo.data.challenge.text
       );
-      console.log(`holaa : ${challengeInfo.data.challenge.text}`);
+      console.log(`challenge info : ${challengeInfo.data.challenge.text}`);
 
-      // mutate: send data
+      /* authenticate the user */
       const authData = await apolloClient.mutate({
         mutation: authenticate,
         variables: {
@@ -45,7 +46,7 @@ export function LensProvider({ children }) {
         },
       });
 
-      // get AccessToken
+      // if auth succesful, get AccessToken
       const {
         data: {
           authenticate: { accessToken },
@@ -59,7 +60,20 @@ export function LensProvider({ children }) {
   };
 
   const getProfileId = async function () {
-    //const defaultProfile = await
+    const defaultProfile = await apolloClient.query({
+      query: getDefaultProfile,
+      variables: {
+        request: {
+          ethereumAddress: account,
+        },
+      },
+    });
+
+    if (defaultProfile.data.defaultProfile) {
+      console.log(defaultProfile.data.defaultProfile.id);
+      return defaultProfile.data.defaultProfile.id;
+    }
+    return null;
   };
 
   useEffect(() => {
@@ -72,6 +86,9 @@ export function LensProvider({ children }) {
     }
     if (!account) {
       window.localStorage.removeItem("lensToken");
+    }
+    if (account) {
+      getProfileId().then((id) => setProfileId(id));
     }
   }, [account]);
 

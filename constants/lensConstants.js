@@ -25,3 +25,56 @@ export const authenticate = gql`
     }
   }
 `;
+
+export const getDefaultProfile = gql`
+  query DefaultProfile($request: DefaultProfileRequest!) {
+    defaultProfile(request: $request) {
+      id
+    }
+  }
+`;
+
+export const getFollowing = gql`
+  query Following($request: FollowingRequest!) {
+    following(request: $request) {
+      items {
+        profile {
+          id
+        }
+      }
+    }
+  }
+`;
+
+export const getPublications = gql`
+  query Metadata($request: PublicationsQueryRequest!) {
+    publications(request: $request) {
+      items {
+        ... on Post {
+          id
+          onChainContentURI
+          profile {
+            name
+          }
+          metadata {
+            image
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const getPublicationsQueryVariables = function (profileIds) {
+  return {
+    request: {
+      limit: 5,
+      publicationTypes: "POST",
+      metadata: {
+        mainContentFocus: "ARTICLE",
+      },
+      profileIds: profileIds,
+    },
+  };
+};
