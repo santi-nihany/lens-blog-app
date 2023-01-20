@@ -1,4 +1,3 @@
-import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import {
   apolloClient,
@@ -8,6 +7,7 @@ import {
 } from "@/constants/lensConstants";
 import { useMoralis } from "react-moralis";
 import { useEffect, useState } from "react";
+import PostFeed from "../components/PostFeed";
 
 let profileIdList = ["0x28a2", "0x869c"];
 
@@ -49,5 +49,13 @@ export default function Home() {
     }
   }, [account]);
 
-  return <div className={styles.container}>Hi</div>;
+  return (
+    <div className={styles.container}>
+      {!pubs ? (
+        <p>Loading...</p>
+      ) : (
+        <PostFeed posts={pubs.data.publications.items} />
+      )}
+    </div>
+  );
 }
