@@ -78,3 +78,20 @@ export const getPublicationsQueryVariables = function (profileIds) {
     },
   };
 };
+
+export const getPublication = gql`
+  query Publications($request: PublicationQueryRequest!) {
+    publication(request: $request) {
+      ... on Post {
+        metadata {
+          image
+          content
+          name
+        }
+        profile {
+          name
+        }
+      }
+    }
+  }
+`;

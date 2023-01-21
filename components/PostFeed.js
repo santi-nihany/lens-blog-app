@@ -20,12 +20,12 @@ function PostItem({ post }) {
     <div className="flex justify-center p-2">
       <Link href={`/posts/${post.id}`}>
         <div className="rounded-lg shadow-lg bg-white max-w-sm">
-          <img className="rounded-t-lg" width="100%" src={imageURL} alt="" />
           <div className="p-6">
-            <h5 className="text-gray-900 text-xl font-medium mb-2">
+            <h2 className="text-gray-900 text-xl font-medium mb-2">
               {post.metadata.name}
-            </h5>
+            </h2>
           </div>
+          <img className="rounded-t-lg" width="100%" src={imageURL} alt="" />
         </div>
       </Link>
     </div>

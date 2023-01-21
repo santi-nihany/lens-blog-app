@@ -1,4 +1,3 @@
-import styles from "@/styles/Home.module.css";
 import {
   apolloClient,
   getFollowing,
@@ -28,12 +27,12 @@ export default function Home() {
           },
         },
       });
+      followingsIds = followers.data.following.items.map((f) => f.profile.id);
     }
-    followingsIds = followers.data.following.items.map((f) => {
-      f.profile.id;
-    });
+    console.log(followingsIds);
 
     profileIdList = profileIdList.concat(followingsIds);
+    console.log(profileIdList);
     const publications = await apolloClient.query({
       query: getPublications,
       variables: getPublicationsQueryVariables(profileIdList),
@@ -50,7 +49,7 @@ export default function Home() {
   }, [account]);
 
   return (
-    <div className={styles.container}>
+    <div>
       {!pubs ? (
         <p>Loading...</p>
       ) : (
