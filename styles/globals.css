@@ -11,3 +11,7 @@
 .markdown>* {
   all: revert;
 }
+
+#post-content{
+  margin-top: 4.5rem;
+}

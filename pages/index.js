@@ -6,13 +6,15 @@ import {
 } from "@/constants/lensConstants";
 import { useMoralis } from "react-moralis";
 import { useEffect, useState } from "react";
+import { useLensContext } from "../context/LensContext";
 import PostFeed from "../components/PostFeed";
+import { toast, Toaster } from "react-hot-toast";
 
 let profileIdList = ["0x28a2", "0x869c", "0xe111"];
 
-export default function Home() {
+export default function Home(props) {
   const [pubs, setPubs] = useState();
-
+  const { profileId } = useLensContext();
   const { account } = useMoralis();
 
   const getPublicationsList = async function () {
@@ -49,12 +51,22 @@ export default function Home() {
   }, [account]);
 
   return (
-    <div>
-      {!pubs ? (
-        <p>Loading...</p>
+    <main className="pt-24">
+      <div className="pl-2 pr-2">
+        <div className="p-2 m1 bg-sky-600 border text-white rounded  border-solid border-black">
+          <p>Our decentralized blogging platform!</p>
+        </div>
+      </div>
+
+      {account ? (
+        !pubs ? (
+          <p>Loading...</p>
+        ) : (
+          <PostFeed posts={pubs.data.publications.items} />
+        )
       ) : (
-        <PostFeed posts={pubs.data.publications.items} />
+        <div>Please, log in </div>
       )}
-    </div>
+    </main>
   );
 }

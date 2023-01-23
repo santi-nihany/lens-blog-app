@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+import "../styles/globals.css";
 import Navbar from "../components/Navbar";
 import { MoralisProvider } from "react-moralis";
 import { LensProvider } from "../context/LensContext";

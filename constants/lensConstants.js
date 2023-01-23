@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { v4 as uuidv4 } from "uuid";
+
 //cenrtralized API, but easier
 const API_URL = "https://api.lens.dev";
 
@@ -115,4 +116,8 @@ export const createContentMetadata = function (
     appId: "Lens Blog",
     attributes: [],
   };
+};
+
+export const getCreatePostQuery = function () {
+  //
 };
