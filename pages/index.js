@@ -8,7 +8,7 @@ import { useMoralis } from "react-moralis";
 import { useEffect, useState } from "react";
 import PostFeed from "../components/PostFeed";
 
-let profileIdList = ["0x28a2", "0x869c"];
+let profileIdList = ["0x28a2", "0x869c", "0xe111"];
 
 export default function Home() {
   const [pubs, setPubs] = useState();

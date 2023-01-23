@@ -15,6 +15,7 @@ function PostItem({ post }) {
   if (post.metadata.image) {
     imageURL = post.metadata.image.replace("ipfs://", "https://ipfs.io/ipfs/");
   }
+  console.log(`${post.metadata.name}: ${imageURL}`);
 
   return (
     <div className="flex justify-center p-2">

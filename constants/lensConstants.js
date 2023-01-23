@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-
+import { v4 as uuidv4 } from "uuid";
 //cenrtralized API, but easier
 const API_URL = "https://api.lens.dev";
 
@@ -95,3 +95,24 @@ export const getPublication = gql`
     }
   }
 `;
+
+export const createContentMetadata = function (
+  content,
+  contentName,
+  imageURI,
+  imageType
+) {
+  return {
+    version: "2.0.0",
+    metadata_id: uuidv4(), // random id to our metadata
+    content: content,
+    description: "Created from Lens Blog",
+    name: contentName,
+    mainContentFocus: "ARTICLE",
+    locale: "en-US",
+    image: imageURI,
+    imageMimeType: imageType,
+    appId: "Lens Blog",
+    attributes: [],
+  };
+};
