@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import { useXMTPContext } from "../context/XMTPContext";
+import { useRouter } from "next/router";
 
 const PATHNAME = "/chat";
 
 export default function Chat() {
   const { account } = useMoralis();
   const { client, initClient } = useXMTPContext();
+  const router = useRouter();
 
   useEffect(() => {
-    if (!client && account && window.location.pathname == PATHNAME) {
+    if (!client && account && router.pathname == PATHNAME) {
       initClient();
     }
-  }, [account, window.location.pathname]);
+  }, [account, router.pathname]);
 
   return (
     <div className="margin-top-content">

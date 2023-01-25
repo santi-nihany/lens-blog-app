@@ -21,11 +21,6 @@ export default function Navbar() {
           </Link>
         </li>
         <li>
-          <div>
-            <ConnectButton moralisAuth={false} />
-          </div>
-        </li>
-        <li>
           <Link href="/chat">
             <div className="flex space-x-2 justify-center">
               <button
@@ -36,6 +31,11 @@ export default function Navbar() {
               </button>
             </div>
           </Link>
+        </li>
+        <li>
+          <div>
+            <ConnectButton moralisAuth={false} />
+          </div>
         </li>
       </ul>
     </nav>
