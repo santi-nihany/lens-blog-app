@@ -4,6 +4,7 @@ import { MoralisProvider } from "react-moralis";
 import { LensProvider } from "../context/LensContext";
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "../constants/lensConstants";
+import { XMTPProvider } from "@/context/XMTPContext";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -11,8 +12,10 @@ export default function App({ Component, pageProps }) {
       <MoralisProvider initializeOnMount={false}>
         <ApolloProvider client={apolloClient}>
           <LensProvider>
-            <Navbar />
-            <Component {...pageProps} />
+            <XMTPProvider>
+              <Navbar />
+              <Component {...pageProps} />
+            </XMTPProvider>
           </LensProvider>
         </ApolloProvider>
       </MoralisProvider>
