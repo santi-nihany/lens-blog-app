@@ -1,6 +1,7 @@
 import { useState, useContext, createContext, useEffect } from "react";
 import { Client, Conversation } from "@xmtp/xmtp-js";
 import { ethers } from "ethers";
+import { useMoralis } from "react-moralis";
 
 // Context config
 export const XMTPContext = createContext();
@@ -11,6 +12,7 @@ export const useXMTPContext = () => {
 export function XMTPProvider({ children }) {
   const [client, setClient] = useState(null);
   const [conversation, setConversation] = useState(null);
+  const { account } = useMoralis();
 
   async function initClient() {
     try {
@@ -24,6 +26,22 @@ export function XMTPProvider({ children }) {
       console.error(e);
     }
   }
+
+  // useEffect(() => {
+  //   const readClient = window.localStorage.getItem("xmtp");
+  //   if (readClient) {
+  //     setClient(readClient);
+  //   }
+  //   if (!account) {
+  //     window.localStorage.removeItem("xmtp");
+  //   }
+  // }, [account]);
+
+  // useEffect(() => {
+  //   if (client) {
+  //     window.localStorage.setItem("xmtp", client);
+  //   }
+  // }, [client]);
 
   return (
     <XMTPContext.Provider
