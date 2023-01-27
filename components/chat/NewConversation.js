@@ -61,11 +61,7 @@ export default function NewConversation() {
             onChange={(e) => setReceiverAddress(e.target.value)}
             placeholder="Address"
           />
-          {/* <input
-          className="italic ml-2 mr-2 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Message"
-        /> */}
+
           <input
             className="italic ml-2 mr-2 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             onChange={(e) => setConversationName(e.target.value)}

@@ -23,7 +23,7 @@ export default function Chat() {
           <NewConversation />
           <div className="flex">
             <ConversationsList />
-            {conversation && <ChatBox />}
+            {conversation && <ChatBox conversation={conversation} />}
           </div>
         </div>
       ) : (

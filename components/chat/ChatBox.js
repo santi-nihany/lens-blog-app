@@ -1,5 +1,24 @@
-export default function ChatBox() {
-  return <div style={chatBox}></div>;
+import Messages from "./Messages";
+import SendMessages from "./SendMessage";
+
+export default function ChatBox({ conversation }) {
+  return (
+    <div style={chatBox}>
+      <div
+        className="grid"
+        style={{ gridTemplateRows: `repeat(8, minmax(0, 46px))` }}
+      >
+        <h1 style={{ textAlign: "center" }}>
+          {conversation.context.metadata.title
+            ? `${conversation.context.metadata.title} with: `
+            : "Chat with: "}
+          {conversation.peerAddress}
+        </h1>
+        <Messages conversation={conversation} />
+        <SendMessages />
+      </div>
+    </div>
+  );
 }
 
 const chatBox = {

@@ -1,4 +1,5 @@
 import { useXMTPContext } from "@/context/XMTPContext";
+import { SortDirection } from "@xmtp/xmtp-js";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -33,6 +34,7 @@ export default function ConversationsList() {
       setLoading(true);
       ListConversations();
       setLoading(false);
+      if (!client) break;
     }
   }
 
@@ -57,7 +59,10 @@ export default function ConversationsList() {
               href={`chat/`}
               onClick={() => setConversation(conversation)}
             >
-              <div style={convContainerStyle}>
+              <div
+                className="hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+                style={convContainerStyle}
+              >
                 <p style={{ marginLeft: "1rem" }}>
                   From: {conversation.peerAddress}
                 </p>
