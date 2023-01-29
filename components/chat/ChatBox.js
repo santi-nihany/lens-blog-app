@@ -1,5 +1,5 @@
 import Messages from "./Messages";
-import SendMessages from "./SendMessage";
+import SendMessage from "./SendMessage";
 
 export default function ChatBox({ conversation }) {
   return (
@@ -14,8 +14,8 @@ export default function ChatBox({ conversation }) {
             : "Chat with: "}
           {conversation.peerAddress}
         </h1>
-        <Messages conversation={conversation} />
-        <SendMessages />
+        <Messages />
+        <SendMessage />
       </div>
     </div>
   );

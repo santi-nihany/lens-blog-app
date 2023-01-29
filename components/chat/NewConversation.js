@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { useXMTPContext } from "@/context/XMTPContext";
-import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
@@ -13,7 +12,6 @@ export default function NewConversation() {
 
   const { account } = useMoralis();
   const { client } = useXMTPContext();
-  const router = useRouter();
 
   const {
     handleSubmit,
@@ -24,7 +22,7 @@ export default function NewConversation() {
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
-      reset({ something: "" });
+      reset();
     }
   }, [formState, reset, isSubmitSuccessful]);
 

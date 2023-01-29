@@ -12,6 +12,7 @@ export const useXMTPContext = () => {
 export function XMTPProvider({ children }) {
   const [client, setClient] = useState(null);
   const [conversation, setConversation] = useState(null);
+  const [messages, setMessages] = useState([]);
   const { account } = useMoralis();
 
   async function initClient() {
@@ -45,7 +46,15 @@ export function XMTPProvider({ children }) {
 
   return (
     <XMTPContext.Provider
-      value={{ initClient, client, conversation, setConversation }}
+      value={{
+        initClient,
+        client,
+        setClient,
+        conversation,
+        setConversation,
+        messages,
+        setMessages,
+      }}
     >
       {children}
     </XMTPContext.Provider>

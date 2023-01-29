@@ -3,6 +3,7 @@ import { SortDirection } from "@xmtp/xmtp-js";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useMoralis } from "react-moralis";
 
 const PATHNAME = "/chat";
 
@@ -10,7 +11,9 @@ export default function ConversationsList() {
   const [loading, setLoading] = useState(false);
   const [conversations, setConversations] = useState(false);
 
-  let { setConversation, client } = useXMTPContext();
+  let { setConversation, client, setClient, setMessages } = useXMTPContext();
+
+  const { account } = useMoralis();
 
   async function ListConversations() {
     const conversations = await client.conversations.list();
@@ -22,7 +25,7 @@ export default function ConversationsList() {
     if (client && client.conversations && router.pathname === PATHNAME) {
       streamConvos();
     }
-  }, [router.pathname]);
+  }, [router.pathname, client, account]);
 
   async function streamConvos() {
     setLoading(true);
@@ -57,7 +60,10 @@ export default function ConversationsList() {
             <Link
               key={conversation.id}
               href={`chat/`}
-              onClick={() => setConversation(conversation)}
+              onClick={() => {
+                setConversation(conversation);
+                setMessages([]);
+              }}
             >
               <div
                 className="hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"

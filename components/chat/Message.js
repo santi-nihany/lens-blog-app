@@ -1,6 +1,10 @@
+import { useMoralis } from "react-moralis";
+
 export default function Message({ message }) {
+  const { account } = useMoralis();
+
   function isMessageFromUser() {
-    return message.from === "user";
+    return message.senderAddress.toLowerCase() == account;
   }
   return (
     <div
@@ -12,7 +16,7 @@ export default function Message({ message }) {
         style={{ backgroundColor: "#e8bfed" }}
         className={`m-1 p-2 rounded-2xl`}
       >
-        {message.msg}
+        {message.content}
       </div>
     </div>
   );

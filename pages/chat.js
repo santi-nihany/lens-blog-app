@@ -12,8 +12,14 @@ const PATHNAME = "/chat";
 
 export default function Chat() {
   const { account } = useMoralis();
-  const { client, initClient, conversation } = useXMTPContext();
+  const { client, initClient, conversation, setConversation, setClient } =
+    useXMTPContext();
   const router = useRouter();
+
+  useEffect(() => {
+    setClient(false);
+    setConversation(false);
+  }, [account]);
 
   return (
     <main className="margin-top-content">
@@ -26,7 +32,7 @@ export default function Chat() {
             {conversation && <ChatBox conversation={conversation} />}
           </div>
         </div>
-      ) : (
+      ) : account ? (
         <div>
           <div>Please sign</div>
           <button
@@ -36,6 +42,8 @@ export default function Chat() {
             Connect to XMTP
           </button>
         </div>
+      ) : (
+        <div>need an account to use XMTP</div>
       )}
     </main>
   );

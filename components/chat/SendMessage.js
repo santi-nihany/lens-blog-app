@@ -1,10 +1,39 @@
-export default function SendMessages() {
+import { useXMTPContext } from "@/context/XMTPContext";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+
+export default function SendMessage() {
+  const [message, setMessage] = useState("");
+  const { conversation } = useXMTPContext();
+  const {
+    handleSubmit,
+    reset,
+    formState,
+    formState: { isSubmitSuccessful },
+  } = useForm();
+
+  // useEffect(() => {
+  //   if (formState.isSubmitSuccessful) {
+  //     reset();
+  //   }
+  // }, [formState, reset, isSubmitSuccessful]);
+
+  async function sendMessage() {
+    if (!message) return toast.error("Please fill `message` field");
+
+    await conversation.send(message);
+    toast.success("Message sent!!");
+    setMessage("");
+  }
+
   return (
     <div style={sendButton}>
-      <form>
+      <form onSubmit={handleSubmit(sendMessage)}>
         <input
           className="italic ml-2 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="Type a message..."
+          onChange={(e) => setMessage(e.target.value)}
           style={{ width: "82%" }}
         ></input>
         <button
