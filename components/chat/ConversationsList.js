@@ -62,7 +62,6 @@ export default function ConversationsList() {
               href={`chat/`}
               onClick={() => {
                 setConversation(conversation);
-                setMessages([]);
               }}
             >
               <div

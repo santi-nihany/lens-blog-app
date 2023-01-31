@@ -5,10 +5,10 @@ import {
   getPublicationsQueryVariables,
 } from "@/constants/lensConstants";
 import { useMoralis } from "react-moralis";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useLensContext } from "../context/LensContext";
 import PostFeed from "../components/PostFeed";
-import { toast, Toaster } from "react-hot-toast";
+import dynamic from "next/dynamic";
 
 let profileIdList = ["0x28a2", "0x869c", "0xe111"];
 
@@ -50,6 +50,13 @@ export default function Home(props) {
     }
   }, [account]);
 
+  const SocialLoginDynamic = dynamic(
+    () => import("../components/login/Auth").then((res) => res.default),
+    {
+      ssr: false,
+    }
+  );
+
   return (
     <main className="pt-24">
       <div className="pl-2 pr-2">
@@ -65,7 +72,9 @@ export default function Home(props) {
           <PostFeed posts={pubs.data.publications.items} />
         )
       ) : (
-        <div>Please, log in </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <SocialLoginDynamic />
+        </Suspense>
       )}
     </main>
   );

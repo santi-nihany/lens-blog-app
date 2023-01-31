@@ -5,6 +5,7 @@ import { LensProvider } from "../context/LensContext";
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "../constants/lensConstants";
 import { XMTPProvider } from "@/context/XMTPContext";
+import "@biconomy/web3-auth/dist/src/style.css";
 
 export default function App({ Component, pageProps }) {
   return (

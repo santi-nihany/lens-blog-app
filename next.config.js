@@ -6,6 +6,11 @@ const nextConfig = {
       // Fixes npm packages that depend on `fs` module
       // https://github.com/vercel/next.js/issues/7755#issuecomment-937721514
       config.resolve.fallback.fs = false;
+      config.resolve.fallback ={
+        "fs": false,
+        "net": false,
+        "tls": false,
+      };
     }
     config.resolve.mainFields = ["browser", "main", "module"];
     return config;
